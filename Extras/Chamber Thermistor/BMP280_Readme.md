@@ -32,7 +32,7 @@ hold down bootsel on pico
 
 while holding bootsec, insert usb cable into printer
 
-perform lsusb, find rp2040 boot device
+type in `lsusb` to confirm the pico displays as a rp2040 boot device
 
 ssh into printer
 ```
