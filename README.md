@@ -6,7 +6,7 @@ This repository will describe installing mainline/regular klipper (via KIAUH) on
 
 Run it from either eMMC or SD card, you choose.<br>
 
-**TL;DR**: _make a backup of klipper config, remove the eMMC from the printer, write CB1 image to eMMC, change BoardEnv.txt and system.txt, put the eMMC back in the printer, install KIAUH; klipper, moonraker, and mainsail (and optional extras), create firmware(s), flash the tool head MCU and board MCU. DONE!_
+**TL;DR**: _make a backup of klipper config, remove the eMMC from the printer, write CB1 image to eMMC, change BoardEnv.txt and system.cfg, put the eMMC back in the printer, install KIAUH; klipper, moonraker, and mainsail (and optional extras), create firmware(s), flash the tool head MCU and board MCU. DONE!_
 
 <br>
 
@@ -150,7 +150,7 @@ _You can now continue to **STEP 3** and then come back here!_
 
 # STEP 3 - CHANGES TO THE BOARDENV.TXT & SETUP WI-FI
 
-To make the CB1 image setup correctly we need to make a few changes to the BoardEnv.txt. Also, we need to set up Wi-Fi credentials (if not connected via ethernet) in the system.txt
+To make the CB1 image setup correctly we need to make a few changes to the BoardEnv.txt. Also, we need to set up Wi-Fi credentials (if not connected via ethernet) in the system.cfg
 
 1. Go to the 'BOOT' drive and make a **BACKUP** of 'BoardEnv.txt' on your hard disk.
 2. Open 'BoardEnv.txt' in your favourite text editor.
@@ -175,10 +175,10 @@ To make the CB1 image setup correctly we need to make a few changes to the Board
 
 - Save your changed BoardEnv.txt!
 
-4. Change the Wi-Fi credentials in the 'system.txt'
+4. Change the Wi-Fi credentials in the 'system.cfg'
 
    - Optional: uncomment the hostname and set the hostname to e.g. "SV08"
-   - Save changes to the system.txt
+   - Save changes to the system.cfg
 
 5. Eject the USB adapter from your computer then put the eMMC (and **SD card** in case of _method 2_) back into the printer and boot it, then:
    - SSH into the printer (find the IP address on your router or use the configured hostname), username/password: biqu/biqu
@@ -376,7 +376,7 @@ Done! The Katapult bootloader is on the MCU! Please click on 'Disconnect' and th
 > The standard Klipper firmware works on both the toolhead MCU and the mainboard MCU. Originally Sovol made multiple changes to the `stm32f1.c` source for the firmware but they are not mandatory. Only now, the printer starts up silently; no fans, no light, and no display during boot. You CAN get some of this functionality back by enabling GPIO pins during startup, see notes below make menuconfig.
 
 > [!TIP]
-> Create a separate text file with the commands (and your serials) for later use. So doing a firmware update is just copying/pasting those commands and you are done much faster!
+> Use the automatic update script made by @Haagel-FR! You can find it [HERE](/Automatic%20MCU%20script%20update). You can still follow the steps (method 1, use the Klipper firmware configuration screenshots) below but it makes flashing the firmwares (now and in the future) much more easy.
 
 It's time to create and flash the Klipper firmware! In the future, you only have to do this step when you need to update your Klipper firmware. _This section assumes you already have **Katapult** flashed and **pyserial** (step 7.1) installed._
 
@@ -454,7 +454,7 @@ cd ~/klipper && make KCONFIG_CONFIG=host.mcu && cd ~/katapult/scripts && python3
 
 ### For the tool head MCU:
 
-You have to replace xxxx with what you have copied at [2](https://github.com/Haagel-FR/Sovol-SV08-Mainline/blob/9a4694ee5ea671ae45c1a426ce40ee3499037206/README.md#L296) for the extra MCU
+You have to replace xxxx with what you have copied at [2](#step-8---flash-klipper) for the extra MCU
 
 ```bash
 sudo service klipper stop
@@ -484,7 +484,7 @@ cd ~/klipper && make menuconfig KCONFIG_CONFIG=toolhead.mcu
 
 - Press Q to quit and save changes.<br>
 
-- Create the firmware and flash the tool head MCU (your serial should now start with `usb-katapult_`). Once again, replace the xxxx at the end with what you have at [2](https://github.com/Haagel-FR/Sovol-SV08-Mainline/blob/9a4694ee5ea671ae45c1a426ce40ee3499037206/README.md#L296) for the extra MCU:<br>
+- Create the firmware and flash the tool head MCU (your serial should now start with `usb-katapult_`). Once again, replace the xxxx at the end with what you have at [2](#step-8---flash-klipper) for the extra MCU:<br>
 
 ```bash
 cd ~/klipper && make KCONFIG_CONFIG=host.mcu && cd ~/katapult/scripts && python3 flashtool.py -d /dev/serial/by-id/usb-katapult_stm32f103xe_xxxx
