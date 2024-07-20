@@ -277,8 +277,9 @@ Next, we have to configure our printer and put back some addons Sovol has added 
 
 # STEP 6 - STOCK FIRMWARE BACKUP
 
-> [!IMPORTANT]
-> When connecting the ST-Link to the printer, make sure the printer is powered OFF. The MCU will be powered by the ST-Link.
+> <b>[!IMPORTANT]</b>
+<br>
+> <b>Before connecting the ST-Link to the printer, make sure the printer is powered OFF. Once the USB connection is established on the STLINK, the system boards will be powered by the USB connection.</b>
 
 It's important to make a backup of the current (stock) firmware. This way you can always revert to this stock configuration. These steps apply to both the tool head MCU and mainboard MCU.
 
