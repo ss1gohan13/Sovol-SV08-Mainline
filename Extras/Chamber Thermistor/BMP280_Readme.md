@@ -22,7 +22,7 @@ Wire thermistor to pico:
 
 # (Mounting of thermistor)
 
-<insert pictures and recomended locations>
+{insert pictures and recomended locations}
 
 # (Flashing Pico)
 
