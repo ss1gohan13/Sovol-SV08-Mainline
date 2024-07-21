@@ -54,6 +54,11 @@ gcode:
     G4 P300000                                          # Waits 5 min for the bedtemp to stabilize
   {% endif %}
 
+  ##  Uncomment for V2 (Quad gantry level AKA QGL)
+  SET_DISPLAY_TEXT MSG="QGL"      # Displays info
+  quad_gantry_level               # Levels the buildplate via QGL
+  G28 Z                           # Homes Z again after QGL
+
   # Heating nozzle to 150 degrees. This helps with getting a correct Z-home
   SET_DISPLAY_TEXT MSG="Hotend: 150C"          # Displays info
   M109 S150                                    # Heats the nozzle to 150c
