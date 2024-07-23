@@ -6,6 +6,13 @@
 #START_PRINT EXTRUDER=[first_layer_temperature] BED=[first_layer_bed_temperature] CHAMBER=[chamber_temperature]
 ########################################
 
+[gcode_macro QUAD_GANTRY_LEVEL]
+rename_existing:QUAD_GANTRY_LEVEL_BASE
+gcode:
+    G28
+    G28 Z
+    QUAD_GANTRY_LEVEL_BASE
+
 [gcode_macro START_PRINT]
 gcode:
   # This part fetches data from your slicer. Such as bed temp, extruder temp, chamber temp and size of your printer.
