@@ -5,14 +5,13 @@
 #M140 S0
 #START_PRINT EXTRUDER=[first_layer_temperature] BED=[first_layer_bed_temperature] CHAMBER=[chamber_temperature]
 ########################################
-#If needing to add the chamber sensor, uncomment the `CHAMBER` areas that have been commented out
 
 [gcode_macro START_PRINT]
 gcode:
   # This part fetches data from your slicer. Such as bed temp, extruder temp, chamber temp and size of your printer.
   {% set target_bed = params.BED|int %}
   {% set target_extruder = params.EXTRUDER|int %}
-#  {% set target_chamber = params.CHAMBER|default("40")|int %}
+  {% set target_chamber = params.CHAMBER|default("40")|int %}
   {% set x_wait = printer.toolhead.axis_maximum.x|float / 2 %}
   {% set y_wait = printer.toolhead.axis_maximum.y|float / 2 %}
 
@@ -43,7 +42,7 @@ gcode:
 
     M190 S{target_bed}                                  # Sets the target temp for the bed
     SET_DISPLAY_TEXT MSG="Heatsoak: {target_chamber}C"  # Displays info
-#    TEMPERATURE_WAIT SENSOR="temperature_sensor chamber" MINIMUM={target_chamber}   # Waits for chamber to reach desired temp
+    TEMPERATURE_WAIT SENSOR="temperature_sensor chamber" MINIMUM={target_chamber}   # Waits for chamber to reach desired temp
 
   # If the bed temp is not over 90c, then it skips the heatsoak and just heats up to set temp with a 5min soak
   {% else %}
