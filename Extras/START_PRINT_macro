@@ -23,7 +23,7 @@ gcode:
   {% set y_wait = printer.toolhead.axis_maximum.y|float / 2 %}
 
   # Homes the printer, sets absolute positioning and updates the Stealthburner leds.
-
+    STATUS_HOMING         # Sets SB-leds to homing-mode
     G28                   # Full home (XYZ)
     G90                   # Absolut position
     G1 X1 F6000
@@ -41,7 +41,7 @@ gcode:
   # Checks if the bed temp is higher than 90c - if so then trigger a heatsoak.
   {% if params.BED|int > 90 %}
     SET_DISPLAY_TEXT MSG="Bed: {target_bed}C"           # Displays info
-
+    STATUS_HEATING                                      # Sets SB-leds to heating-mode
     M106 S255                                           # Turns on the PT-fan
 
     ##  Uncomment if you have a Nevermore.
@@ -54,7 +54,7 @@ gcode:
   # If the bed temp is not over 90c, then it skips the heatsoak and just heats up to set temp with a 5min soak
   {% else %}
     SET_DISPLAY_TEXT MSG="Bed: {target_bed}C"           # Displays info
-
+    STATUS_HEATING                                      # Sets SB-leds to heating-mode
     M190 S{target_bed}                                  # Sets the target temp for the bed
     SET_DISPLAY_TEXT MSG="Soak for 5min"                # Displays info
     G4 P300000                                          # Waits 5 min for the bedtemp to stabilize
@@ -62,8 +62,15 @@ gcode:
 
   ##  Uncomment for V2 (Quad gantry level AKA QGL)
   SET_DISPLAY_TEXT MSG="QGL"      # Displays info
+  STATUS_LEVELING                 # Sets SB-leds to leveling-mode
   quad_gantry_level               # Levels the buildplate via QGL
   G28 Z                           # Homes Z again after QGL
+
+    G90
+    G1 X1 F6000
+    G1 Y20
+    G1 Z0.600 F600
+    G1 Y0 F9000
 
   # Heating nozzle to 150 degrees. This helps with getting a correct Z-home
   SET_DISPLAY_TEXT MSG="Hotend: 150C"          # Displays info
@@ -73,29 +80,17 @@ gcode:
   SET_DISPLAY_TEXT MSG="Bed mesh"    # Displays info
 
   BED_MESH_CALIBRATE ADAPTIVE=1                # Starts bed mesh
+  STATUS_MESHING                     # Sets SB-leds to bed mesh-mode
+
+  SMART_PARK
 
   # Heats up the nozzle up to target via data from slicer
   SET_DISPLAY_TEXT MSG="Hotend: {target_extruder}C"             # Displays info
-
-    G90
-    G1 X1 F6000
-    G1 Y20
-    G1 Z0.600 F600
-    G1 Y0 F9000
+  STATUS_HEATING                                                # Sets SB-leds to heating-mode
   M107                                                          # Turns off partcooling fan
   M109 S{target_extruder}                                       # Heats the nozzle to printing temp
 
   # Gets ready to print by doing a purge line and updating the SB-leds
   SET_DISPLAY_TEXT MSG="Printer goes brr"          # Displays info
-
-    G1 E18 F200
-    G4 P1000
-    G1 E-0.200 Z5 F600
-    G1 X22.000 F6000
-    G1 Z0.600 F600
-    G1 X45.000 E5 F500
-    G1 Y1 E0.16 F500
-    G1 X22.000 E5 F500
-    G1 Y2 E0.24 F600
-    G1 E-0.200 Z1 F600
-    M400
+  
+  LINE_PURGE
