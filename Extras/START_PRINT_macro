@@ -7,10 +7,9 @@
 ########################################
 
 [gcode_macro MANUAL_QUAD_GANTRY_LEVEL]
-rename_existing:QUAD_GANTRY_LEVEL_BASE
 gcode:
     G28
-    QUAD_GANTRY_LEVEL_BASE
+    QUAD_GANTRY_LEVEL
 
 [gcode_macro START_PRINT]
 gcode:
