@@ -23,11 +23,8 @@ gcode:
   # Homes the printer, sets absolute positioning and updates the Stealthburner leds.
     STATUS_HOMING         # Sets SB-leds to homing-mode
     G28                   # Full home (XYZ)
-    G90                   # Absolut position
-    G1 X1 F6000
-    G1 Y20
-    G1 Z0.600 F600
-    G1 Y0 F9000
+
+    SMART_PARK
 
     M400
 
@@ -64,11 +61,7 @@ gcode:
   quad_gantry_level               # Levels the buildplate via QGL
   G28 Z                           # Homes Z again after QGL
 
-    G90
-    G1 X1 F6000
-    G1 Y20
-    G1 Z0.600 F600
-    G1 Y0 F9000
+  SMART_PARK
 
   # Heating nozzle to 150 degrees. This helps with getting a correct Z-home
   SET_DISPLAY_TEXT MSG="Hotend: 150C"          # Displays info
