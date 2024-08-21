@@ -10,6 +10,7 @@
 gcode:
     G28
     QUAD_GANTRY_LEVEL
+    G28 Z
 
 [gcode_macro START_PRINT]
 gcode:
