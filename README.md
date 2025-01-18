@@ -18,7 +18,7 @@ Run it from either eMMC or SD card, you choose.<br>
 
 <p>That being said, all steps have been thoroughly tested by multiple people in the community. Please follow the steps exactly and carefully and you will have a good working printer at the end. If you get stuck at some point or have any questions please create an issue or find support on the Sovol (official and unofficial) Discord.</p>
 
-<br><br>
+<br>
 
 This guide uses color codes to showcase important info.
 
@@ -64,7 +64,6 @@ Ok, now you can continue.
   - It is recommended to get yourself a separate **eMMC module** (MKS eMMC Module) on which you install the new OS Image and mainline klipper. This way you always have a backup (eMMC) of a stock/working printer.
 - If you go for the '_method 2_' you need a big enough **MicroSD card**, it's *also* possible to run everything from the SD card and not use an eMMC.
 - You will need an ST-Link V2 (Mini) with the **STM32CubeProgrammer** software installed to be able to update/flash the MCU firmware.
-- The files used for this guide can now be found together in the GitHub folder `/files-used/` [HERE](files-used/)
 - To edit the different files during this guide please use a text editor like [Notepad++](https://notepad-plus-plus.org/) (or use `nano` from ssh). This way we can make sure the files stay in a proper format with proper (Linux style) line endings and work as intended. *When using the default Windows Notepad this is not always the case!*
 
 ### EMMC Sellers
@@ -301,13 +300,13 @@ Time for the fun stuff! Now we shall install KIAUH, Klipper, Moonraker, etc. Ple
 
 Next, we have to configure our printer and put back some addons Sovol has added (probe_pressure and z_offset_calibration) and get the basics working. 
 
-Please use the files provided [HERE](files-used/) in the `/files-used/` GitHub folder. Some items (like the 'z_offset_calibration' script) have been fixed to work with the newest version of Klipper and other items in the printer.cfg have been changed/improved e.g. for a more silent and cooler (motor) running printer.
+Please use the files provided [HERE](/biqu/klipper/extras/) in the `/biqu/klipper/extras/` GitHub folder. Some items (like the 'z_offset_calibration' script) have been fixed to work with the newest version of Klipper and other items in the printer.cfg have been changed/improved e.g. for a more silent and cooler (motor) running printer.
 
-1. RESTORE THE SOVOL ADDONS _(from the `/files-used/sovol-addons/` github directory)_ [HERE](files-used/sovol-addons/):<br>
+1. RESTORE THE SOVOL ADDONS _(from the `/biqu/klipper/extras/` github directory)_ [HERE](biqu/klipper/extras/):<br>
     - Use an SFTP program (like WinSCP) to connect to the printer (IP address or hostname, port: 22, username/password: biqu/biqu)
     - Put the files `'probe_pressure.py'` and `'z_offset_calibration.py'` into the `'~/klipper/klippy/extras/'` folder.<br>
 
-2. GRAB BASE PRINTER CONFIGURATION _(from the `/files-used/config/` github directory)_ [HERE](files-used/config/):<br>
+2. GRAB BASE PRINTER CONFIGURATION _(from the `/biqu/printer_data/config/` github directory)_ [HERE](biqu/printer_data/config/):<br>
 
    - Copy the entire config folder to the printer `~/printer_data/config` folder.<br>
 
