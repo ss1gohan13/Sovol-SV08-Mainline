@@ -239,7 +239,7 @@ Time for the fun stuff! Now we shall install KIAUH, Klipper, Moonraker, etc. Ple
    ./kiauh/kiauh.sh
    ```
 
-4. Install Klipper, Moonraker, Mainsail, and Crowsnest (in this order, _also check tip below_) via KIAUH.
+4. Install Klipper, Moonraker, Mainsail (or Fluidd), and Crowsnest (in this order, _also check tip below_) via KIAUH.
 
    - So run KIAUH and choose: option **'1) [Install]'** and install those items (_using default options, download recommended macros; Yes_).
    - Crowsnest install asks to reboot the printer, please do so.
