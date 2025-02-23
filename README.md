@@ -96,7 +96,7 @@ Ok, now you can continue.
 > WE ARE STILL TESTING V3.0.0... <br>
 > DO NOT ASK FOR HELP IF YOU ARE USING V3.0.0
 
-First, download the BIGTREETECH CB1 Linux image (the original Sovol SV08 image was also based on this): [https://github.com/bigtreetech/CB1](https://github.com/bigtreetech/CB1/releases/tag/V2.3.4)
+First, [download](https://github.com/bigtreetech/CB1/releases/tag/V2.3.4) the BIGTREETECH CB1 Linux image (the original Sovol SV08 image was also based on this): [CB1 image ver 2.3.4](https://github.com/bigtreetech/CB1/releases/tag/V2.3.4)
 >[!NOTE]
 >Regardless of the medium (SD card or eMMC) or the size the BIGTREETECH CB1 Linux image will expand the size of the image to the full size of the card being used.
 >
@@ -126,16 +126,13 @@ _**Method 3**: Choose to run everything from the SD card and stop at Method 2.2_
      -> Flash! (this will erase everything on the eMMC!)
 4. After the flash is complete you can close BalenaEtcher. If everything is alright you now see a FAT drive called 'BOOT' (if not, eject the USB adapter and put it back in)
 
-_You can now continue to **STEP 3**_
+_You can now continue to [**STEP 3**](https://github.com/ss1gohan13/Sovol-SV08-Mainline/edit/main/README.md#step-3---changes-to-the-boardenvtxt--setup-wi-fi)_
 
 <br>
 
 ## METHOD 2: WRITE IMAGE TO SD -> eMMC
 
-1. Write the image to the eMMC chip
-   - Used in this example: [CB1_Debian11_minimal_kernel5.16_20240319.img.xz](https://github.com/bigtreetech/CB1/releases/download/V2.3.4/CB1_Debian11_minimal_kernel5.16_20240319.img.xz)
-
-2. Use [BalenaEtcher](https://github.com/balena-io/etcher/releases) to write the image to the **SD card**
+1. Use [BalenaEtcher](https://github.com/balena-io/etcher/releases) to write the image to the **SD card**
    - Used in this example: balenaEtcher-win32-x64-1.19.21.zip (portable, so doesn't need an installer)
    - Open Balena Etcher<br>
      -> Choose "Flash from file", browse and choose the downloaded CB1 image<br>
@@ -145,9 +142,9 @@ _You can now continue to **STEP 3**_
 > [!NOTE]
 > _Sidenote here: you could, if you choose here, run the printer from the SD card and skip the whole eMMC. Just so you know ;-)_
 
-3. Put the eMMC module in the USB adapter (again, mind the direction of the module, there is an arrow on the adapter) and put the USB adapter in your computer.<br>
+2. Put the eMMC module in the USB adapter (again, mind the direction of the module, there is an arrow on the adapter) and put the USB adapter in your computer.<br>
 
-4. We need to clear all the partitions from the eMMC (this will erase everything on the eMMC!) :
+3. We need to clear all the partitions from the eMMC (this will erase everything on the eMMC!) :
    - In Windows open the command prompt (Win-R -> cmd) and run `diskpart` (be careful with diskpart, we don't want to erase the wrong disk here!)
    - In diskpart do `list disk` and see what disk is your eMMC
    - In diskpart run `select disk <nr>` where <nr> is the number of your eMMC. Please make sure this is the correct disk before you continue!
@@ -158,7 +155,7 @@ _You can now continue to **STEP 3**_
 
 _Please continue to **STEP 3** and then come back here!_
 
-5. If everything is ok you should have booted from the SD card, and it's time to copy all the contents to the eMMC and make it bootable.
+4. If everything is ok you should have booted from the SD card, and it's time to copy all the contents to the eMMC and make it bootable.
    - First, check if the eMMC is recognized and available:
      - Run the command `fdisk -l` and you should see some storage devices including the eMMC (_e.g. /dev/mmcblk1 for the SD card and /dev/mmcblk2 for the eMMC_).
    - Run the command `sudo nand-sata-install`:
@@ -300,9 +297,9 @@ Time for the fun stuff! Now we shall install KIAUH, Klipper, Moonraker, etc. Ple
 
 Next, we have to configure our printer and put back some addons Sovol has added (probe_pressure and z_offset_calibration) and get the basics working. 
 
-Please use the files provided [HERE](/biqu/klipper/extras/) in the `/biqu/klipper/extras/` GitHub folder. Some items (like the 'z_offset_calibration' script) have been fixed to work with the newest version of Klipper and other items in the printer.cfg have been changed/improved e.g. for a more silent and cooler (motor) running printer.
+Please use the files provided [HERE](https://github.com/ss1gohan13/Sovol-SV08-Mainline/tree/main/biqu/klipper/klippy/extras) in the `/biqu/klipper/extras/` GitHub folder. Some items (like the 'z_offset_calibration' script) have been fixed to work with the newest version of Klipper and other items in the printer.cfg have been changed/improved e.g. for a more silent and cooler (motor) running printer.
 
-1. RESTORE THE SOVOL ADDONS _(from the `/biqu/klipper/extras/` github directory)_ [HERE](biqu/klipper/extras/):<br>
+1. RESTORE THE SOVOL ADDONS _(from the `/biqu/klipper/extras/` github directory)_ [HERE](https://github.com/ss1gohan13/Sovol-SV08-Mainline/tree/main/biqu/klipper/klippy/extras):<br>
     - Use an SFTP program (like WinSCP) to connect to the printer (IP address or hostname, port: 22, username/password: biqu/biqu)
     - Put the files `'probe_pressure.py'` and `'z_offset_calibration.py'` into the `'~/klipper/klippy/extras/'` folder.<br>
 
